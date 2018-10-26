@@ -26,22 +26,22 @@ A = -1
 B = 0
 
 # 参数维度
-WN = 2
+WN = 3
 
 # 数据点个数
-DATA_NUM = 100
+DATA_NUM = 80
 
 # 惩罚项
 LAMBDA = 0.5
 
 # 最小误差
-EPSILON = 1
+EPSILON = 0.5
 
 # 最大迭代次数
-LOOP_MAX = 1000
+LOOP_MAX = 8000
 
 # 学习速度
-ALPHA = 0.0013
+ALPHA = 0.001
 
 def original_data(data_head_x=DATA_HEAD_X, data_end_x=DATA_END_X, data_head_y=DATA_HEAD_Y, data_end_y=DATA_END_Y, line_a = A, line_b = B, data_num=DATA_NUM):
     list_x = []
@@ -65,9 +65,9 @@ def logistic_regression_Gradient_Descent_without_lambda(data_mat, result, w = WN
     size_y = np.size(data_mat, 1)
     y0 = np.ones((size_y, 1)).T
     X = np.ones((size_y, 1)).T
-    X = data_mat
+    X = np.vstack((X, data_mat))
     y = result
-    W = np.ones((w, 1)).T
+    W = np.zeros((w, 1)).T
 
     while abs(re) > EPSILON and count < LOOP_MAX:
         re = 0
@@ -124,7 +124,7 @@ def main():
     
     list_x, list_y, data_mat, result = original_data()
     W, count, re = logistic_regression_Gradient_Descent_without_lambda(data_mat, result)
-    draw(ax1, list_x, list_y, W, line_a=W.tolist()[0][1], line_b=W.tolist()[0][0])
+    draw(ax1, list_x, list_y, W, line_a= - W.tolist()[0][1]/W.tolist()[0][2], line_b=-W.tolist()[0][0]/W.tolist()[0][2])
     print(W)
     print(count)
     print(re)
