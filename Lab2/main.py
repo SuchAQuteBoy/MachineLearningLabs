@@ -22,8 +22,8 @@ DATA_HEAD_Y = -10
 DATA_END_Y = 10
 
 # 直线参数
-A = 100
-B = 0
+A = -2
+B = 4
 
 # 参数维度
 WN = 3
